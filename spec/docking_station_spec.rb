@@ -31,9 +31,11 @@ describe DockingStation do
     end
 
   it 'returns docked bikes' do
+    DockingStation::DEFAULT_CAPACITY.times do
     bike = Bike.new
-    20.times { subject.release_bike }
+    subject.release_bike
     expect(subject.bike).to eq bike
+    end
   end 
 
   describe '#release_bike' do
@@ -45,8 +47,11 @@ describe DockingStation do
 
   describe '#dock' do
     it 'raises an error when full' do
-      20.times { subject.dock(Bike.new) }
-      expect { subject.dock Bike.new }.to raise_error 'Docking station full'
+      DockingStation::DEFAULT_CAPACITY.times do
+
+     subject.dock Bike.new 
+     expect { subject.dock Bike.new }.to raise_error 'Docking station full'
+    end
     end
   end
 end
